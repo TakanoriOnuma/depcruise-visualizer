@@ -1,0 +1,393 @@
+{
+  "modules": [
+    {
+      "source": "src/App.tsx",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "~/components",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "aliased",
+            "aliased-tsconfig",
+            "aliased-tsconfig-paths",
+            "local",
+            "import"
+          ],
+          "resolved": "src/components/index.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": ["src/main.tsx"],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/index.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./Counter",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": ["local", "export"],
+          "resolved": "src/components/Counter/index.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./LocalCounter",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": ["local", "export"],
+          "resolved": "src/components/LocalCounter/index.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./OperandButton",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": ["local", "export"],
+          "resolved": "src/components/OperandButton/index.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": ["src/App.tsx"],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/Counter/index.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./Counter",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": ["local", "export"],
+          "resolved": "src/components/Counter/Counter.tsx",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./useCounter",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": ["local", "export"],
+          "resolved": "src/components/Counter/useCounter.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "src/components/index.ts",
+        "src/components/LocalCounter/LocalCounter.tsx"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/Counter/Counter.tsx",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "../OperandButton",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": ["local", "import"],
+          "resolved": "src/components/OperandButton/index.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "src/components/Counter/index.ts",
+        "src/components/Counter/Counter.stories.tsx"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/OperandButton/index.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./OperandButton",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": ["local", "export"],
+          "resolved": "src/components/OperandButton/OperandButton.tsx",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "src/components/index.ts",
+        "src/components/Counter/Counter.tsx"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/OperandButton/OperandButton.tsx",
+      "dependencies": [],
+      "dependents": ["src/components/OperandButton/index.ts"],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/Counter/useCounter.ts",
+      "dependencies": [],
+      "dependents": ["src/components/Counter/index.ts"],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/LocalCounter/index.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./LocalCounter",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": ["local", "export"],
+          "resolved": "src/components/LocalCounter/LocalCounter.tsx",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": ["src/components/index.ts"],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/LocalCounter/LocalCounter.tsx",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "../Counter",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": ["local", "import"],
+          "resolved": "src/components/Counter/index.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "src/components/LocalCounter/index.ts",
+        "src/components/LocalCounter/LocalCounter.stories.tsx"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/Counter/Counter.stories.tsx",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./Counter",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": ["local", "import"],
+          "resolved": "src/components/Counter/Counter.tsx",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/LocalCounter/LocalCounter.stories.tsx",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./LocalCounter",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": ["local", "import"],
+          "resolved": "src/components/LocalCounter/LocalCounter.tsx",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": ["src/components/LocalCounter/LocalCounter.test.tsx"],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/LocalCounter/LocalCounter.test.tsx",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./LocalCounter.stories",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": ["local", "import"],
+          "resolved": "src/components/LocalCounter/LocalCounter.stories.tsx",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/main.tsx",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./App",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": ["local", "import"],
+          "resolved": "src/App.tsx",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [],
+      "orphan": false,
+      "valid": true
+    }
+  ],
+  "summary": {
+    "violations": [],
+    "error": 0,
+    "warn": 0,
+    "info": 0,
+    "ignore": 0,
+    "totalCruised": 13,
+    "totalDependenciesCruised": 14,
+    "optionsUsed": {
+      "baseDir": "/Users/takanori/Documents/privateProjests/trial-dependency-cruiser",
+      "combinedDependencies": false,
+      "doNotFollow": {
+        "path": "node_modules"
+      },
+      "exclude": {
+        "path": "^node_modules"
+      },
+      "exoticRequireStrings": [],
+      "externalModuleResolutionStrategy": "node_modules",
+      "metrics": false,
+      "moduleSystems": ["es6", "cjs", "tsd", "amd"],
+      "outputTo": "-",
+      "outputType": "json",
+      "prefix": "https://github.com/TakanoriOnuma/trial-dependency-cruiser/blob/main/",
+      "preserveSymlinks": false,
+      "reporterOptions": {
+        "dot": {
+          "collapsePattern": "node_modules/(?:@[^/]+/[^/]+|[^/]+)"
+        }
+      },
+      "rulesFile": ".dependency-cruiser.cjs",
+      "tsConfig": {
+        "fileName": "tsconfig.json"
+      },
+      "tsPreCompilationDeps": true,
+      "args": "src"
+    },
+    "ruleSetUsed": {
+      "forbidden": [
+        {
+          "name": "no-circular",
+          "severity": "error",
+          "comment": "循環参照が検知されました。",
+          "from": {},
+          "to": {
+            "circular": true
+          },
+          "scope": "module"
+        },
+        {
+          "name": "no-orphans",
+          "comment": "このモジュールはどこからも参照されていません。",
+          "severity": "error",
+          "from": {
+            "orphan": true,
+            "pathNot": "(^|/)[.][^/]+[.](?:js|cjs|mjs|ts|cts|mts|json)$|[.]d[.]ts$|(^|/)tsconfig[.]json$|(^|/)(?:babel|webpack)[.]config[.](?:js|cjs|mjs|ts|cts|mts|json)$"
+          },
+          "to": {},
+          "scope": "module"
+        },
+        {
+          "name": "not-to-spec",
+          "comment": "テストファイルをimportするのは禁止しています。",
+          "severity": "error",
+          "from": {},
+          "to": {
+            "path": "[.](?:spec|test)[.](?:js|mjs|cjs|jsx|ts|mts|cts|tsx|ls|coffee|litcoffee|coffee[.]md)$"
+          },
+          "scope": "module"
+        }
+      ]
+    }
+  }
+}
