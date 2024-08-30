@@ -80,7 +80,31 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
     const svg = viz.renderSVGElement(dot);
     elGraphRef.current?.appendChild(svg);
 
+    const nodes = svg.querySelectorAll(".node");
+    const edges = svg.querySelectorAll(".edge");
+    console.log(nodes);
+
+    const mouseOverHandler = (e: Event) => {
+      console.log("enter", e);
+      if (e.target instanceof Element) {
+        const closestNodeOrEdge = e.target.closest(".node, .edge");
+        console.log(closestNodeOrEdge);
+      }
+    };
+    const mouseLeaveHandler = (e: Event) => {
+      console.log("leave", e);
+    };
+
+    nodes.forEach((node) => {
+      node.addEventListener("mouseenter", mouseOverHandler);
+      node.addEventListener("mouseleave", mouseLeaveHandler);
+    });
+
     return () => {
+      nodes.forEach((node) => {
+        node.removeEventListener("mouseenter", mouseOverHandler);
+        node.removeEventListener("mouseleave", mouseLeaveHandler);
+      });
       svg.remove();
     };
   }, [viz, depcruiseResult]);
