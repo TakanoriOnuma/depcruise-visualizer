@@ -1,7 +1,13 @@
 import { FC, useState, useEffect, useRef } from "react";
 import { instance, Viz } from "@viz-js/viz";
+import { Box } from "@mui/material";
 
 import DepcruiseResultJson from "../../debug/dependency-result.json";
+
+/** アクティブスタイルにするためのクラス名 */
+const ACTIVE_CLASS_NAME = "current";
+/** edgeに装飾するグラデーションの参照ID */
+const EDGE_GRADATION_ID = "edgeGradient";
 
 /** dependency-cruiserを実行して得られるJSONデータ */
 type DepcruiseResult = typeof DepcruiseResultJson;
@@ -78,6 +84,15 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
     console.log(dot);
 
     const svg = viz.renderSVGElement(dot);
+    // @see https://github.com/sverweij/dependency-cruiser/blob/v16.4.0/src/report/dot-webpage/svg-in-html-snippets/script.cjs#L255-L262
+    svg.insertAdjacentHTML(
+      "afterbegin",
+      `<linearGradient id="${EDGE_GRADATION_ID}">
+        <stop offset="0%" stop-color="fuchsia"/>
+        <stop offset="100%" stop-color="purple"/>
+      </linearGradient>
+      `
+    );
     elGraphRef.current?.appendChild(svg);
 
     const nodes = svg.querySelectorAll(".node");
@@ -109,5 +124,58 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
     };
   }, [viz, depcruiseResult]);
 
-  return <div ref={elGraphRef} />;
+  return (
+    <Box
+      ref={elGraphRef}
+      sx={{
+        // この辺のCSSを参考に設定する
+        // @see https://github.com/sverweij/dependency-cruiser/blob/v16.4.0/src/report/dot-webpage/svg-in-html-snippets/style.css#L1-L9
+        "& .node": {
+          [[
+            "&:active path",
+            "&:hover path",
+            `&.${ACTIVE_CLASS_NAME} path`,
+            "&:active polygon",
+            "&:hover polygon",
+            `&.${ACTIVE_CLASS_NAME} polygon`,
+          ].join(",")]: {
+            stroke: "fuchsia",
+            strokeWidth: 2,
+          },
+        },
+        "& .edge": {
+          [[
+            "&:active path",
+            "&:hover path",
+            `&.${ACTIVE_CLASS_NAME} path`,
+            "&:active ellipse",
+            "&:hover ellipse",
+            `&.${ACTIVE_CLASS_NAME} ellipse`,
+          ].join(",")]: {
+            // グラデーションを使うとエッジが見えなくなる時があるので、一旦コメントアウト
+            // stroke: `url(#${EDGE_GRADATION_ID})`,
+            stroke: "fuchsia",
+            strokeWidth: 3,
+            strokeOpacity: 1,
+          },
+          [[
+            "&:active polygon",
+            "&:hover polygon",
+            `&.${ACTIVE_CLASS_NAME} polygon`,
+          ].join(",")]: {
+            stroke: "fuchsia",
+            strokeWidth: 3,
+            fill: "fuchsia",
+            strokeOpacity: 1,
+            fillOpacity: 1,
+          },
+        },
+        "& .cluster": {
+          [["&:active path", "&:hover path"].join(",")]: {
+            fill: "#ffff0011",
+          },
+        },
+      }}
+    />
+  );
 };
