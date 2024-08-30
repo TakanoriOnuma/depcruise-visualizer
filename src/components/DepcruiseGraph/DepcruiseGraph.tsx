@@ -2,6 +2,8 @@ import { FC, useState, useEffect, useRef } from "react";
 import { instance, Viz } from "@viz-js/viz";
 import { Box } from "@mui/material";
 
+import { getTitleInElement } from "./getTitleInElement";
+import { createTitle2ElementsMap } from "./createTitle2ElementsMap";
 import DepcruiseResultJson from "../../debug/dependency-result.json";
 
 /** アクティブスタイルにするためのクラス名 */
@@ -95,28 +97,37 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
     );
     elGraphRef.current?.appendChild(svg);
 
-    const nodes = svg.querySelectorAll(".node");
-    const edges = svg.querySelectorAll(".edge");
-    console.log(nodes);
+    const nodes = [...svg.querySelectorAll(".node")];
+    const edges = [...svg.querySelectorAll(".edge")];
+    const title2ElementsMap = createTitle2ElementsMap(nodes, edges);
 
     const mouseOverHandler = (e: Event) => {
-      console.log("enter", e);
       if (e.target instanceof Element) {
         const closestNodeOrEdge = e.target.closest(".node, .edge");
-        console.log(closestNodeOrEdge);
+        if (closestNodeOrEdge) {
+          const elements =
+            title2ElementsMap[getTitleInElement(closestNodeOrEdge)];
+          if (elements) {
+            elements.forEach((element) => {
+              element.classList.add(ACTIVE_CLASS_NAME);
+            });
+          }
+        }
       }
     };
-    const mouseLeaveHandler = (e: Event) => {
-      console.log("leave", e);
+    const mouseLeaveHandler = () => {
+      [...nodes, ...edges].forEach((element) => {
+        element.classList.remove(ACTIVE_CLASS_NAME);
+      });
     };
 
-    nodes.forEach((node) => {
+    [...nodes, ...edges].forEach((node) => {
       node.addEventListener("mouseenter", mouseOverHandler);
       node.addEventListener("mouseleave", mouseLeaveHandler);
     });
 
     return () => {
-      nodes.forEach((node) => {
+      [...nodes, ...edges].forEach((node) => {
         node.removeEventListener("mouseenter", mouseOverHandler);
         node.removeEventListener("mouseleave", mouseLeaveHandler);
       });
