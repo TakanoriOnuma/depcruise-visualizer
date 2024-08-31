@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 
 import { getTitleInElement } from "./getTitleInElement";
 import { createTitle2ElementsMap } from "./createTitle2ElementsMap";
+import { generateDot } from "./generateDot";
 import DepcruiseResultJson from "../../debug/dependency-result.json";
 
 /** アクティブスタイルにするためのクラス名 */
@@ -22,48 +23,6 @@ const useViz = (): Viz | null => {
   }, []);
 
   return viz;
-};
-
-/**
- * JSONデータからGraphvizのDOT言語の文字列を生成する
- * @param depcruiseResult - dependency-cruiserを実行して得られるJSONデータ
- */
-const generateDot = (depcruiseResult: DepcruiseResult) => {
-  const generateNodeLabel = (segments: string[], rootPath: string): string => {
-    const [segment, ...restSegments] = segments;
-    if (segment == null) {
-      return "";
-    }
-    const currentPath = rootPath === "" ? segment : `${rootPath}/${segment}`;
-    if (restSegments.length <= 0) {
-      return `"${currentPath}" [label=<${segment}>]`;
-    }
-    return `subgraph "cluster_${currentPath}" { label="${segment}" ${generateNodeLabel(
-      restSegments,
-      currentPath
-    )} }`;
-  };
-
-  const graphStrs = depcruiseResult.modules
-    .map((mod) => {
-      return [
-        generateNodeLabel(mod.source.split("/"), ""),
-        ...mod.dependencies.map((dep) => {
-          return `"${mod.source}" -> "${dep.resolved}"`;
-        }),
-      ];
-    })
-    .flat();
-
-  return [
-    'strict digraph "dependency-cruiser output" {',
-    '  rankdir="LR" splines="true" overlap="false" nodesep="0.16" ranksep="0.18" fontname="Helvetica-bold" fontsize="9" style="rounded,bold,filled" fillcolor="#ffffff" compound="true"',
-    '  node [shape="box" style="rounded, filled" height="0.2" color="black" fillcolor="#ffffcc" fontcolor="black" fontname="Helvetica" fontsize="9"]',
-    '  edge [arrowhead="normal" arrowsize="0.6" penwidth="2.0" color="#00000033" fontname="Helvetica" fontsize="9"]',
-    "",
-    ...graphStrs,
-    "}",
-  ].join("\n");
 };
 
 export type DepcruiseGraphProps = {
@@ -86,6 +45,7 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
     console.log(dot);
 
     const svg = viz.renderSVGElement(dot);
+    // ハイライト時に設定する用のグラデーションを追加
     // @see https://github.com/sverweij/dependency-cruiser/blob/v16.4.0/src/report/dot-webpage/svg-in-html-snippets/script.cjs#L255-L262
     svg.insertAdjacentHTML(
       "afterbegin",
