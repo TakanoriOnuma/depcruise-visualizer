@@ -5,25 +5,34 @@ import type { IModule } from "dependency-cruiser";
  * @param modules - dependency-cruiserを実行して得られるJSONデータのmodules
  */
 export const generateDot = (modules: IModule[]): string => {
-  const generateNodeLabel = (segments: string[], rootPath: string): string => {
+  const generateNodeLabel = (
+    segments: string[],
+    rootPath: string,
+    module: IModule
+  ): string => {
     const [segment, ...restSegments] = segments;
     if (segment == null) {
       return "";
     }
     const currentPath = rootPath === "" ? segment : `${rootPath}/${segment}`;
     if (restSegments.length <= 0) {
-      return `"${currentPath}" [label=<${segment}>]`;
+      const attrs = [
+        `label=<${segment}>`,
+        module.consolidated ? 'shape="box3d"' : null,
+      ].filter((attr) => attr != null);
+      return `"${currentPath}" [${attrs.join(" ")}]`;
     }
     return `subgraph "cluster_${currentPath}" { label="${segment}" ${generateNodeLabel(
       restSegments,
-      currentPath
+      currentPath,
+      module
     )} }`;
   };
 
   const graphStrs = modules
     .map((mod) => {
       return [
-        generateNodeLabel(mod.source.split("/"), ""),
+        generateNodeLabel(mod.source.split("/"), "", mod),
         ...mod.dependencies.map((dep) => {
           return `"${mod.source}" -> "${dep.resolved}"`;
         }),
