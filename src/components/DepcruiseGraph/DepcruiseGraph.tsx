@@ -40,7 +40,8 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
     }
 
     const optimizedModules = optimizeModules(depcruiseResult.modules, {
-      collapsePattern: new RegExp("src/components/[^/]+"),
+      startDir: "src/components",
+      // collapsePattern: new RegExp("src/components/[^/]+"),
     });
     console.log(optimizedModules);
     const dot = generateDot(optimizedModules);
