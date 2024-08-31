@@ -4,7 +4,8 @@ import { consolidateToPattern } from "./consolidateToPattern";
 export type OptimizeModulesOption = {
   /** グラフ表示の起点となるディレクトリパス */
   startDir?: string;
-  collapsePattern?: RegExp;
+  /** 表示する深さ（depth以降はboxでまとめられる） */
+  depth?: number;
 };
 
 /**
@@ -13,7 +14,7 @@ export type OptimizeModulesOption = {
  */
 export const optimizeModules = (
   modules: IModule[],
-  { startDir, collapsePattern }: OptimizeModulesOption = {}
+  { startDir, depth }: OptimizeModulesOption = {}
 ): IModule[] => {
   /** startDirから始まるようにパスを変更する */
   const filteredModules = startDir
@@ -45,9 +46,13 @@ export const optimizeModules = (
         })
     : modules;
 
-  const mods = collapsePattern
-    ? consolidateToPattern(filteredModules, collapsePattern)
-    : filteredModules;
+  const mods =
+    depth != null && depth > 0
+      ? consolidateToPattern(
+          filteredModules,
+          new RegExp("^" + "[^/]+/".repeat(depth).slice(0, -1))
+        )
+      : filteredModules;
 
   return [...mods].sort((a, b) => (a.source > b.source ? 1 : -1));
 };
