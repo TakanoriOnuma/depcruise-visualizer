@@ -1,8 +1,11 @@
-import { FC, useRef, useState, useEffect } from "react";
+import { FC, useRef, useState, useEffect, useMemo, useCallback } from "react";
 import { instance, Viz } from "@viz-js/viz";
+import { Box, Stack, TextField, Typography, Button } from "@mui/material";
+import { clamp } from "lodash-es";
 
 import depcruiseResult from "./debug/dependency-result.json";
 import { DepcruiseGraph } from "./components/DepcruiseGraph";
+import { OptimizeModulesOption } from "./components/DepcruiseGraph/optimizeModules";
 
 const useViz = (): Viz | null => {
   const [viz, setViz] = useState<Viz | null>(null);
@@ -17,6 +20,8 @@ const useViz = (): Viz | null => {
 export const App: FC = () => {
   const viz = useViz();
   const elDebugGraphRef = useRef<HTMLDivElement>(null);
+  const [startDir, setStartDir] = useState("");
+  const [depth, setDepth] = useState(3);
 
   useEffect(() => {
     if (viz == null) {
@@ -65,11 +70,50 @@ strict digraph "dependency-cruiser output"{
     };
   }, [viz]);
 
+  const options: OptimizeModulesOption = useMemo(() => {
+    return { startDir, depth };
+  }, [startDir, depth]);
+
+  const handleClickCluster = useCallback((clusterName: string) => {
+    setStartDir((prev) =>
+      prev !== "" ? [prev, clusterName].join("/") : clusterName
+    );
+  }, []);
+
   return (
-    <div>
-      Hello, World!
-      <DepcruiseGraph depcruiseResult={depcruiseResult as any} />
+    <Box sx={{ p: 2 }}>
+      <Stack direction="row" spacing={1}>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <Typography>StartDir: {startDir || "/"}</Typography>
+          <Button
+            variant="outlined"
+            disabled={startDir === ""}
+            onClick={() => {
+              setStartDir("");
+            }}
+          >
+            リセット
+          </Button>
+        </Stack>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <Typography component="label">Depth:</Typography>
+          <TextField
+            sx={{ width: 100 }}
+            value={depth}
+            type="number"
+            size="small"
+            onChange={(event) => {
+              setDepth(clamp(Number(event.target.value), 0, 10));
+            }}
+          />
+        </Stack>
+      </Stack>
+      <DepcruiseGraph
+        depcruiseResult={depcruiseResult as any}
+        options={options}
+        onClickCluster={handleClickCluster}
+      />
       <div ref={elDebugGraphRef} />
-    </div>
+    </Box>
   );
 };

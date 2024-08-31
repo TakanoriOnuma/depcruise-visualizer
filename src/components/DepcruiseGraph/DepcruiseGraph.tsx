@@ -5,7 +5,7 @@ import type { ICruiseResult } from "dependency-cruiser";
 
 import { getTitleInElement } from "./getTitleInElement";
 import { createTitle2ElementsMap } from "./createTitle2ElementsMap";
-import { optimizeModules } from "./optimizeModules";
+import { optimizeModules, OptimizeModulesOption } from "./optimizeModules";
 import { generateDot } from "./generateDot";
 
 /** アクティブスタイルにするためのクラス名 */
@@ -26,10 +26,16 @@ const useViz = (): Viz | null => {
 export type DepcruiseGraphProps = {
   /** dependency-cruiserを実行して得られるJSONデータ */
   depcruiseResult: ICruiseResult;
+  /** グラフ表示のオプション */
+  options?: OptimizeModulesOption;
+  /** クラスタークリック時 */
+  onClickCluster: (clusterName: string) => void;
 };
 
 export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
   depcruiseResult,
+  options,
+  onClickCluster,
 }) => {
   const viz = useViz();
   const elGraphRef = useRef<HTMLDivElement>(null);
@@ -39,10 +45,7 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
       return;
     }
 
-    const optimizedModules = optimizeModules(depcruiseResult.modules, {
-      startDir: "src",
-      depth: 2,
-    });
+    const optimizedModules = optimizeModules(depcruiseResult.modules, options);
     console.log(optimizedModules);
     const dot = generateDot(optimizedModules);
     console.log(dot);
@@ -89,14 +92,31 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
       node.addEventListener("mouseleave", mouseLeaveHandler);
     });
 
+    const clusters = svg.querySelectorAll(".cluster");
+    const clusterClickHandler = (e: Event) => {
+      if (e.target instanceof Element) {
+        const cluster = e.target.closest(".cluster");
+        if (cluster) {
+          const title = getTitleInElement(cluster);
+          onClickCluster(title.replace("cluster_", ""));
+        }
+      }
+    };
+    clusters.forEach((cluster) => {
+      cluster.addEventListener("click", clusterClickHandler);
+    });
+
     return () => {
       [...nodes, ...edges].forEach((node) => {
         node.removeEventListener("mouseenter", mouseOverHandler);
         node.removeEventListener("mouseleave", mouseLeaveHandler);
       });
+      clusters.forEach((cluster) => {
+        cluster.removeEventListener("click", clusterClickHandler);
+      });
       svg.remove();
     };
-  }, [viz, depcruiseResult]);
+  }, [viz, depcruiseResult, options, onClickCluster]);
 
   return (
     <Box
