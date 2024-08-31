@@ -68,7 +68,7 @@ strict digraph "dependency-cruiser output"{
   return (
     <div>
       Hello, World!
-      <DepcruiseGraph depcruiseResult={depcruiseResult} />
+      <DepcruiseGraph depcruiseResult={depcruiseResult as any} />
       <div ref={elDebugGraphRef} />
     </div>
   );

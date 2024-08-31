@@ -1,19 +1,16 @@
 import { FC, useState, useEffect, useRef } from "react";
 import { instance, Viz } from "@viz-js/viz";
 import { Box } from "@mui/material";
+import type { ICruiseResult } from "dependency-cruiser";
 
 import { getTitleInElement } from "./getTitleInElement";
 import { createTitle2ElementsMap } from "./createTitle2ElementsMap";
 import { generateDot } from "./generateDot";
-import DepcruiseResultJson from "../../debug/dependency-result.json";
 
 /** アクティブスタイルにするためのクラス名 */
 const ACTIVE_CLASS_NAME = "current";
 /** edgeに装飾するグラデーションの参照ID */
 const EDGE_GRADATION_ID = "edgeGradient";
-
-/** dependency-cruiserを実行して得られるJSONデータ */
-type DepcruiseResult = typeof DepcruiseResultJson;
 
 const useViz = (): Viz | null => {
   const [viz, setViz] = useState<Viz | null>(null);
@@ -27,7 +24,7 @@ const useViz = (): Viz | null => {
 
 export type DepcruiseGraphProps = {
   /** dependency-cruiserを実行して得られるJSONデータ */
-  depcruiseResult: DepcruiseResult;
+  depcruiseResult: ICruiseResult;
 };
 
 export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({

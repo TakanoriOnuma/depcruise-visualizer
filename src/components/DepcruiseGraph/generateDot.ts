@@ -1,13 +1,10 @@
-import DepcruiseResultJson from "../../debug/dependency-result.json";
-
-/** dependency-cruiserを実行して得られるJSONデータ */
-type DepcruiseResult = typeof DepcruiseResultJson;
+import type { ICruiseResult } from "dependency-cruiser";
 
 /**
  * JSONデータからGraphvizのDOT言語の文字列を生成する
  * @param depcruiseResult - dependency-cruiserを実行して得られるJSONデータ
  */
-export const generateDot = (depcruiseResult: DepcruiseResult) => {
+export const generateDot = (depcruiseResult: ICruiseResult) => {
   const generateNodeLabel = (segments: string[], rootPath: string): string => {
     const [segment, ...restSegments] = segments;
     if (segment == null) {
