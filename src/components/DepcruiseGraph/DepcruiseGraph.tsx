@@ -5,6 +5,7 @@ import type { ICruiseResult } from "dependency-cruiser";
 
 import { getTitleInElement } from "./getTitleInElement";
 import { createTitle2ElementsMap } from "./createTitle2ElementsMap";
+import { optimizeModules } from "./optimizeModules";
 import { generateDot } from "./generateDot";
 
 /** アクティブスタイルにするためのクラス名 */
@@ -38,7 +39,7 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
       return;
     }
 
-    const dot = generateDot(depcruiseResult);
+    const dot = generateDot(optimizeModules(depcruiseResult.modules));
     console.log(dot);
 
     const svg = viz.renderSVGElement(dot);

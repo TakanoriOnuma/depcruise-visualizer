@@ -1,10 +1,10 @@
-import type { ICruiseResult } from "dependency-cruiser";
+import type { IModule } from "dependency-cruiser";
 
 /**
  * JSONデータからGraphvizのDOT言語の文字列を生成する
- * @param depcruiseResult - dependency-cruiserを実行して得られるJSONデータ
+ * @param modules - dependency-cruiserを実行して得られるJSONデータのmodules
  */
-export const generateDot = (depcruiseResult: ICruiseResult) => {
+export const generateDot = (modules: IModule[]): string => {
   const generateNodeLabel = (segments: string[], rootPath: string): string => {
     const [segment, ...restSegments] = segments;
     if (segment == null) {
@@ -20,7 +20,7 @@ export const generateDot = (depcruiseResult: ICruiseResult) => {
     )} }`;
   };
 
-  const graphStrs = depcruiseResult.modules
+  const graphStrs = modules
     .map((mod) => {
       return [
         generateNodeLabel(mod.source.split("/"), ""),
