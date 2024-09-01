@@ -5,39 +5,14 @@
       "dependencies": [
         {
           "dynamic": false,
-          "module": "~/components",
+          "module": "./components/DepcruiseGraph",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
           "dependencyTypes": [
-            "aliased",
-            "aliased-tsconfig",
-            "aliased-tsconfig-paths",
             "local",
             "import"
           ],
-          "resolved": "src/components/index.ts",
-          "coreModule": false,
-          "followable": true,
-          "couldNotResolve": false,
-          "matchesDoNotFollow": false,
-          "circular": false,
-          "valid": true
-        }
-      ],
-      "dependents": ["src/main.tsx"],
-      "orphan": false,
-      "valid": true
-    },
-    {
-      "source": "src/components/index.ts",
-      "dependencies": [
-        {
-          "dynamic": false,
-          "module": "./Counter",
-          "moduleSystem": "es6",
-          "exoticallyRequired": false,
-          "dependencyTypes": ["local", "export"],
-          "resolved": "src/components/Counter/index.ts",
+          "resolved": "src/components/DepcruiseGraph/index.ts",
           "coreModule": false,
           "followable": true,
           "couldNotResolve": false,
@@ -47,11 +22,14 @@
         },
         {
           "dynamic": false,
-          "module": "./LocalCounter",
+          "module": "./components/DepcruiseGraph/optimizeModules",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
-          "dependencyTypes": ["local", "export"],
-          "resolved": "src/components/LocalCounter/index.ts",
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/components/DepcruiseGraph/optimizeModules/index.ts",
           "coreModule": false,
           "followable": true,
           "couldNotResolve": false,
@@ -61,49 +39,16 @@
         },
         {
           "dynamic": false,
-          "module": "./OperandButton",
+          "module": "./debug/dependency-result.json",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
-          "dependencyTypes": ["local", "export"],
-          "resolved": "src/components/OperandButton/index.ts",
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/debug/dependency-result.json",
           "coreModule": false,
-          "followable": true,
-          "couldNotResolve": false,
-          "matchesDoNotFollow": false,
-          "circular": false,
-          "valid": true
-        }
-      ],
-      "dependents": ["src/App.tsx"],
-      "orphan": false,
-      "valid": true
-    },
-    {
-      "source": "src/components/Counter/index.ts",
-      "dependencies": [
-        {
-          "dynamic": false,
-          "module": "./Counter",
-          "moduleSystem": "es6",
-          "exoticallyRequired": false,
-          "dependencyTypes": ["local", "export"],
-          "resolved": "src/components/Counter/Counter.tsx",
-          "coreModule": false,
-          "followable": true,
-          "couldNotResolve": false,
-          "matchesDoNotFollow": false,
-          "circular": false,
-          "valid": true
-        },
-        {
-          "dynamic": false,
-          "module": "./useCounter",
-          "moduleSystem": "es6",
-          "exoticallyRequired": false,
-          "dependencyTypes": ["local", "export"],
-          "resolved": "src/components/Counter/useCounter.ts",
-          "coreModule": false,
-          "followable": true,
+          "followable": false,
           "couldNotResolve": false,
           "matchesDoNotFollow": false,
           "circular": false,
@@ -111,108 +56,41 @@
         }
       ],
       "dependents": [
-        "src/components/index.ts",
-        "src/components/LocalCounter/LocalCounter.tsx"
+        "src/main.tsx"
       ],
       "orphan": false,
       "valid": true
     },
     {
-      "source": "src/components/Counter/Counter.tsx",
-      "dependencies": [
-        {
-          "dynamic": false,
-          "module": "../OperandButton",
-          "moduleSystem": "es6",
-          "exoticallyRequired": false,
-          "dependencyTypes": ["local", "import"],
-          "resolved": "src/components/OperandButton/index.ts",
-          "coreModule": false,
-          "followable": true,
-          "couldNotResolve": false,
-          "matchesDoNotFollow": false,
-          "circular": false,
-          "valid": true
-        }
+      "source": "src/debug/dependency-result.json",
+      "followable": false,
+      "coreModule": false,
+      "couldNotResolve": false,
+      "matchesDoNotFollow": false,
+      "dependencyTypes": [
+        "local",
+        "import"
       ],
-      "dependents": [
-        "src/components/Counter/index.ts",
-        "src/components/Counter/Counter.stories.tsx"
-      ],
-      "orphan": false,
-      "valid": true
-    },
-    {
-      "source": "src/components/OperandButton/index.ts",
-      "dependencies": [
-        {
-          "dynamic": false,
-          "module": "./OperandButton",
-          "moduleSystem": "es6",
-          "exoticallyRequired": false,
-          "dependencyTypes": ["local", "export"],
-          "resolved": "src/components/OperandButton/OperandButton.tsx",
-          "coreModule": false,
-          "followable": true,
-          "couldNotResolve": false,
-          "matchesDoNotFollow": false,
-          "circular": false,
-          "valid": true
-        }
-      ],
-      "dependents": [
-        "src/components/index.ts",
-        "src/components/Counter/Counter.tsx"
-      ],
-      "orphan": false,
-      "valid": true
-    },
-    {
-      "source": "src/components/OperandButton/OperandButton.tsx",
       "dependencies": [],
-      "dependents": ["src/components/OperandButton/index.ts"],
-      "orphan": false,
-      "valid": true
-    },
-    {
-      "source": "src/components/Counter/useCounter.ts",
-      "dependencies": [],
-      "dependents": ["src/components/Counter/index.ts"],
-      "orphan": false,
-      "valid": true
-    },
-    {
-      "source": "src/components/LocalCounter/index.ts",
-      "dependencies": [
-        {
-          "dynamic": false,
-          "module": "./LocalCounter",
-          "moduleSystem": "es6",
-          "exoticallyRequired": false,
-          "dependencyTypes": ["local", "export"],
-          "resolved": "src/components/LocalCounter/LocalCounter.tsx",
-          "coreModule": false,
-          "followable": true,
-          "couldNotResolve": false,
-          "matchesDoNotFollow": false,
-          "circular": false,
-          "valid": true
-        }
+      "dependents": [
+        "src/App.tsx"
       ],
-      "dependents": ["src/components/index.ts"],
       "orphan": false,
       "valid": true
     },
     {
-      "source": "src/components/LocalCounter/LocalCounter.tsx",
+      "source": "src/components/DepcruiseGraph/index.ts",
       "dependencies": [
         {
           "dynamic": false,
-          "module": "../Counter",
+          "module": "./DepcruiseGraph",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
-          "dependencyTypes": ["local", "import"],
-          "resolved": "src/components/Counter/index.ts",
+          "dependencyTypes": [
+            "local",
+            "export"
+          ],
+          "resolved": "src/components/DepcruiseGraph/DepcruiseGraph.tsx",
           "coreModule": false,
           "followable": true,
           "couldNotResolve": false,
@@ -222,22 +100,75 @@
         }
       ],
       "dependents": [
-        "src/components/LocalCounter/index.ts",
-        "src/components/LocalCounter/LocalCounter.stories.tsx"
+        "src/App.tsx"
       ],
       "orphan": false,
       "valid": true
     },
     {
-      "source": "src/components/Counter/Counter.stories.tsx",
+      "source": "src/components/DepcruiseGraph/DepcruiseGraph.tsx",
       "dependencies": [
         {
           "dynamic": false,
-          "module": "./Counter",
+          "module": "./createTitle2ElementsMap",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
-          "dependencyTypes": ["local", "import"],
-          "resolved": "src/components/Counter/Counter.tsx",
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/components/DepcruiseGraph/createTitle2ElementsMap.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./generateDot",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/components/DepcruiseGraph/generateDot/index.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./getTitleInElement",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/components/DepcruiseGraph/getTitleInElement.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./optimizeModules",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/components/DepcruiseGraph/optimizeModules/index.ts",
           "coreModule": false,
           "followable": true,
           "couldNotResolve": false,
@@ -246,20 +177,25 @@
           "valid": true
         }
       ],
-      "dependents": [],
+      "dependents": [
+        "src/components/DepcruiseGraph/index.ts"
+      ],
       "orphan": false,
       "valid": true
     },
     {
-      "source": "src/components/LocalCounter/LocalCounter.stories.tsx",
+      "source": "src/components/DepcruiseGraph/createTitle2ElementsMap.ts",
       "dependencies": [
         {
           "dynamic": false,
-          "module": "./LocalCounter",
+          "module": "./getTitleInElement",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
-          "dependencyTypes": ["local", "import"],
-          "resolved": "src/components/LocalCounter/LocalCounter.tsx",
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/components/DepcruiseGraph/getTitleInElement.ts",
           "coreModule": false,
           "followable": true,
           "couldNotResolve": false,
@@ -268,20 +204,35 @@
           "valid": true
         }
       ],
-      "dependents": ["src/components/LocalCounter/LocalCounter.test.tsx"],
+      "dependents": [
+        "src/components/DepcruiseGraph/DepcruiseGraph.tsx"
+      ],
       "orphan": false,
       "valid": true
     },
     {
-      "source": "src/components/LocalCounter/LocalCounter.test.tsx",
+      "source": "src/components/DepcruiseGraph/getTitleInElement.ts",
+      "dependencies": [],
+      "dependents": [
+        "src/components/DepcruiseGraph/DepcruiseGraph.tsx",
+        "src/components/DepcruiseGraph/createTitle2ElementsMap.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/DepcruiseGraph/generateDot/index.ts",
       "dependencies": [
         {
           "dynamic": false,
-          "module": "./LocalCounter.stories",
+          "module": "./generateDot",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
-          "dependencyTypes": ["local", "import"],
-          "resolved": "src/components/LocalCounter/LocalCounter.stories.tsx",
+          "dependencyTypes": [
+            "local",
+            "export"
+          ],
+          "resolved": "src/components/DepcruiseGraph/generateDot/generateDot.ts",
           "coreModule": false,
           "followable": true,
           "couldNotResolve": false,
@@ -290,7 +241,155 @@
           "valid": true
         }
       ],
-      "dependents": [],
+      "dependents": [
+        "src/components/DepcruiseGraph/DepcruiseGraph.tsx"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/DepcruiseGraph/generateDot/generateDot.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./dotTheme",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/components/DepcruiseGraph/generateDot/dotTheme.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./filterMatchThemes",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/components/DepcruiseGraph/generateDot/filterMatchThemes.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "src/components/DepcruiseGraph/generateDot/index.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/DepcruiseGraph/generateDot/dotTheme.ts",
+      "dependencies": [],
+      "dependents": [
+        "src/components/DepcruiseGraph/generateDot/generateDot.ts",
+        "src/components/DepcruiseGraph/generateDot/filterMatchThemes.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/DepcruiseGraph/generateDot/filterMatchThemes.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./dotTheme",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "type-only",
+            "import"
+          ],
+          "resolved": "src/components/DepcruiseGraph/generateDot/dotTheme.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "src/components/DepcruiseGraph/generateDot/generateDot.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/DepcruiseGraph/optimizeModules/index.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./optimizeModules",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "export"
+          ],
+          "resolved": "src/components/DepcruiseGraph/optimizeModules/optimizeModules.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "src/App.tsx",
+        "src/components/DepcruiseGraph/DepcruiseGraph.tsx"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/DepcruiseGraph/optimizeModules/optimizeModules.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./consolidateToPattern",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/components/DepcruiseGraph/optimizeModules/consolidateToPattern.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "src/components/DepcruiseGraph/optimizeModules/index.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/DepcruiseGraph/optimizeModules/consolidateToPattern.ts",
+      "dependencies": [],
+      "dependents": [
+        "src/components/DepcruiseGraph/optimizeModules/optimizeModules.ts"
+      ],
       "orphan": false,
       "valid": true
     },
@@ -299,11 +398,48 @@
       "dependencies": [
         {
           "dynamic": false,
-          "module": "./App",
+          "module": "./App.tsx",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
-          "dependencyTypes": ["local", "import"],
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
           "resolved": "src/App.tsx",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./index.css",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/index.css",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./theme",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/theme.ts",
           "coreModule": false,
           "followable": true,
           "couldNotResolve": false,
@@ -314,6 +450,39 @@
       ],
       "dependents": [],
       "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/index.css",
+      "followable": false,
+      "coreModule": false,
+      "couldNotResolve": false,
+      "matchesDoNotFollow": false,
+      "dependencyTypes": [
+        "local",
+        "import"
+      ],
+      "dependencies": [],
+      "dependents": [
+        "src/main.tsx"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/theme.ts",
+      "dependencies": [],
+      "dependents": [
+        "src/main.tsx"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/vite-env.d.ts",
+      "dependencies": [],
+      "dependents": [],
+      "orphan": true,
       "valid": true
     }
   ],
@@ -323,24 +492,27 @@
     "warn": 0,
     "info": 0,
     "ignore": 0,
-    "totalCruised": 13,
-    "totalDependenciesCruised": 14,
+    "totalCruised": 17,
+    "totalDependenciesCruised": 18,
     "optionsUsed": {
-      "baseDir": "/Users/takanori/Documents/privateProjests/trial-dependency-cruiser",
+      "baseDir": "/Users/takanori/Documents/privateProjests/depcruise-visualizer",
       "combinedDependencies": false,
       "doNotFollow": {
         "path": "node_modules"
       },
-      "exclude": {
-        "path": "^node_modules"
-      },
       "exoticRequireStrings": [],
       "externalModuleResolutionStrategy": "node_modules",
+      "includeOnly": "^src",
       "metrics": false,
-      "moduleSystems": ["es6", "cjs", "tsd", "amd"],
-      "outputTo": "-",
+      "moduleSystems": [
+        "es6",
+        "cjs",
+        "tsd",
+        "amd"
+      ],
+      "outputTo": "src/debug/dependency-result.json",
       "outputType": "json",
-      "prefix": "https://github.com/TakanoriOnuma/trial-dependency-cruiser/blob/main/",
+      "prefix": "https://github.com/TakanoriOnuma/depcruise-visualizer/blob/main/",
       "preserveSymlinks": false,
       "reporterOptions": {
         "dot": {

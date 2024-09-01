@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deps:json": "depcruise src --include-only '^src' -T json -f src/debug/dependency-result.json",
+    "deps:dot": "depcruise src --include-only '^src' -T dot -f src/debug/dependency-result.dot"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",

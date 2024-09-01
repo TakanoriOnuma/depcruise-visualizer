@@ -20,9 +20,20 @@ export const filterMatchThemes = (
         return false;
       }
 
-      // 対象の値が完全に合致するか、正規表現で合致する場合はtrue
+      // moduleと条件がそれぞれ複数の場合もあるので、配列に統一する
       const value = criteriaTheme.criteria[key];
-      return moduleValue === value || new RegExp(value).test(moduleValue);
+      const values = Array.isArray(value) ? value : [value];
+      const moduleValues = Array.isArray(moduleValue)
+        ? moduleValue
+        : [moduleValue];
+
+      // いずれかが条件に合致すればtrue
+      return moduleValues.some((moduleValue) => {
+        return values.some((value) => {
+          // 対象の値が完全に一致するか、正規表現で合致する場合はtrue
+          return moduleValue === value || new RegExp(value).test(moduleValue);
+        });
+      });
     });
   });
 };
