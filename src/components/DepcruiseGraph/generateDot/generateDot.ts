@@ -1,4 +1,26 @@
 import type { IModule } from "dependency-cruiser";
+import { DOT_THEME } from "./dotTheme";
+
+/**
+ * オブジェクトで管理している属性を文字列に変換する
+ * @param attrObj - 属性を持つオブジェクト
+ */
+const attributizeObject = (attrObj: Record<string, string | number>) => {
+  return Object.keys(attrObj)
+    .map((key) => `${key}="${attrObj[key]}"`)
+    .join(" ");
+};
+
+/**
+ * DOT言語のグラフの属性を文字列に変換する
+ */
+const getGeneralAttributesStr = () => {
+  return [
+    `  ${attributizeObject(DOT_THEME.graph)}`,
+    `  node [${attributizeObject(DOT_THEME.node)}]`,
+    `  edge [${attributizeObject(DOT_THEME.edge)}]`,
+  ].join("\n");
+};
 
 /**
  * JSONデータからGraphvizのDOT言語の文字列を生成する
@@ -42,9 +64,7 @@ export const generateDot = (modules: IModule[]): string => {
 
   return [
     'strict digraph "dependency-cruiser output" {',
-    '  rankdir="LR" splines="true" overlap="false" nodesep="0.16" ranksep="0.18" fontname="Helvetica-bold" fontsize="9" style="rounded,bold,filled" fillcolor="#ffffff" compound="true"',
-    '  node [shape="box" style="rounded, filled" height="0.2" color="black" fillcolor="#ffffcc" fontcolor="black" fontname="Helvetica" fontsize="9"]',
-    '  edge [arrowhead="normal" arrowsize="0.6" penwidth="2.0" color="#00000033" fontname="Helvetica" fontsize="9"]',
+    getGeneralAttributesStr(),
     "",
     ...graphStrs,
     "}",
