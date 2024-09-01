@@ -1,11 +1,12 @@
 import { FC, useState, useMemo, useCallback } from "react";
-import { Box, Stack, TextField, Typography, Button } from "@mui/material";
+import { Box, Stack, TextField, Typography } from "@mui/material";
 import { clamp } from "lodash-es";
 
 import depcruiseResult from "./debug/dependency-result.json";
 import { DepcruiseGraph } from "./components/DepcruiseGraph";
 import type { OptimizeModulesOption } from "./components/DepcruiseGraph/optimizeModules";
 import { DebugDotGraph } from "./components/DebugDotGraph";
+import { PathBreadCrumbs } from "./components/PathBreadCrumbs";
 
 export const App: FC = () => {
   const [startDir, setStartDir] = useState("");
@@ -23,18 +24,15 @@ export const App: FC = () => {
 
   return (
     <Box sx={{ p: 2 }}>
-      <Stack direction="row" spacing={1}>
+      <Stack spacing={1}>
         <Stack direction="row" alignItems="center" spacing={1}>
-          <Typography>StartDir: {startDir || "/"}</Typography>
-          <Button
-            variant="outlined"
-            disabled={startDir === ""}
-            onClick={() => {
-              setStartDir("");
+          <Typography>StartDir: </Typography>
+          <PathBreadCrumbs
+            path={startDir}
+            onChangePath={(newPath) => {
+              setStartDir(newPath);
             }}
-          >
-            リセット
-          </Button>
+          />
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1}>
           <Typography component="label">Depth:</Typography>
@@ -49,6 +47,7 @@ export const App: FC = () => {
           />
         </Stack>
       </Stack>
+      <hr />
       <DepcruiseGraph
         depcruiseResult={depcruiseResult as any}
         options={options}
