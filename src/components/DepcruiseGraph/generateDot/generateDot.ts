@@ -1,3 +1,5 @@
+import urlJoin from "url-join";
+
 import type { IDependency, IModule } from "dependency-cruiser";
 import { DOT_THEME, CriteriaTheme } from "./dotTheme";
 import { filterMatchThemes } from "./filterMatchThemes";
@@ -59,11 +61,19 @@ const getDependencyAttributes = (
   );
 };
 
+export type DotOption = {
+  /** 外部リンクを指定する際のURL */
+  baseUrl?: string;
+};
+
 /**
  * JSONデータからGraphvizのDOT言語の文字列を生成する
  * @param modules - dependency-cruiserを実行して得られるJSONデータのmodules
  */
-export const generateDot = (modules: IModule[]): string => {
+export const generateDot = (
+  modules: IModule[],
+  { baseUrl }: DotOption = {}
+): string => {
   const generateNodeLabel = (
     segments: string[],
     rootPath: string,
@@ -75,12 +85,16 @@ export const generateDot = (modules: IModule[]): string => {
     }
     const currentPath = rootPath === "" ? segment : `${rootPath}/${segment}`;
     if (restSegments.length <= 0) {
-      const attrs = {
-        ...getModuleAttributes(module),
-      };
-      return `"${currentPath}" [label=<${segment}> ${attributizeObject(
-        attrs
-      )}]`;
+      const moduleAttrs = getModuleAttributes(module);
+      const urlAttrs: CriteriaTheme["attributes"] =
+        baseUrl != null
+          ? { URL: urlJoin(baseUrl, currentPath), target: "_blank" }
+          : {};
+
+      return `"${currentPath}" [label=<${segment}> ${attributizeObject({
+        ...moduleAttrs,
+        ...urlAttrs,
+      })}]`;
     }
     return `subgraph "cluster_${currentPath}" { label="${segment}" ${generateNodeLabel(
       restSegments,

@@ -2,11 +2,12 @@ import { FC, useState, useEffect, useRef } from "react";
 import { instance, Viz } from "@viz-js/viz";
 import { Box } from "@mui/material";
 import type { ICruiseResult } from "dependency-cruiser";
+import urlJoin from "url-join";
 
 import { getTitleInElement } from "./getTitleInElement";
 import { createTitle2ElementsMap } from "./createTitle2ElementsMap";
 import { optimizeModules, OptimizeModulesOption } from "./optimizeModules";
-import { generateDot } from "./generateDot";
+import { generateDot, DotOption } from "./generateDot";
 
 /** アクティブスタイルにするためのクラス名 */
 const ACTIVE_CLASS_NAME = "current";
@@ -25,11 +26,14 @@ const useViz = (): Viz | null => {
   return viz;
 };
 
+/** グラフオプション */
+export type DepcruiseGraphOption = OptimizeModulesOption & DotOption;
+
 export type DepcruiseGraphProps = {
   /** dependency-cruiserを実行して得られるJSONデータ */
   depcruiseResult: ICruiseResult;
   /** グラフ表示のオプション */
-  options?: OptimizeModulesOption;
+  options?: DepcruiseGraphOption;
   /** クラスタークリック時 */
   onClickCluster: (clusterName: string) => void;
 };
@@ -49,7 +53,12 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
 
     const optimizedModules = optimizeModules(depcruiseResult.modules, options);
     console.log(optimizedModules);
-    const dot = generateDot(optimizedModules);
+    const dot = generateDot(optimizedModules, {
+      ...options,
+      baseUrl: options?.baseUrl
+        ? urlJoin(options.baseUrl, options.startDir ?? "")
+        : undefined,
+    });
     console.log(dot);
 
     const svg = viz.renderSVGElement(dot);

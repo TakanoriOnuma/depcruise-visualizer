@@ -4,17 +4,20 @@ import { clamp } from "lodash-es";
 
 import depcruiseResult from "./debug/dependency-result.json";
 import { DepcruiseGraph } from "./components/DepcruiseGraph";
-import type { OptimizeModulesOption } from "./components/DepcruiseGraph/optimizeModules";
+import type { DepcruiseGraphOption } from "./components/DepcruiseGraph";
 import { DebugDotGraph } from "./components/DebugDotGraph";
 import { PathBreadCrumbs } from "./components/PathBreadCrumbs";
 
 export const App: FC = () => {
+  const [baseUrl, setBaseUrl] = useState(
+    "https://github.com/TakanoriOnuma/depcruise-visualizer/tree/main"
+  );
   const [startDir, setStartDir] = useState("");
   const [depth, setDepth] = useState(4);
 
-  const options: OptimizeModulesOption = useMemo(() => {
-    return { startDir, depth };
-  }, [startDir, depth]);
+  const options: DepcruiseGraphOption = useMemo(() => {
+    return { startDir, depth, baseUrl };
+  }, [startDir, depth, baseUrl]);
 
   const handleClickCluster = useCallback((clusterName: string) => {
     setStartDir((prev) =>
@@ -25,6 +28,17 @@ export const App: FC = () => {
   return (
     <Box sx={{ p: 2 }}>
       <Stack spacing={1}>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <Typography>BaseUrl: </Typography>
+          <TextField
+            fullWidth
+            value={baseUrl}
+            size="small"
+            onChange={(event) => {
+              setBaseUrl(event.target.value);
+            }}
+          />
+        </Stack>
         <Stack direction="row" alignItems="center" spacing={1}>
           <Typography>StartDir: </Typography>
           <PathBreadCrumbs
