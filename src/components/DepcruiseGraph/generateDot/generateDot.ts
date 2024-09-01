@@ -1,5 +1,6 @@
-import type { IModule } from "dependency-cruiser";
-import { DOT_THEME } from "./dotTheme";
+import type { IDependency, IModule } from "dependency-cruiser";
+import { DOT_THEME, CriteriaTheme } from "./dotTheme";
+import { filterMatchThemes } from "./filterMatchThemes";
 
 /**
  * オブジェクトで管理している属性を文字列に変換する
@@ -23,6 +24,42 @@ const getGeneralAttributesStr = () => {
 };
 
 /**
+ * moduleの属性を取得する
+ * @param module - dependency-cruiserのmodule
+ */
+const getModuleAttributes = (module: IModule): CriteriaTheme["attributes"] => {
+  return filterMatchThemes(DOT_THEME.modules, module).reduce(
+    (attrObj, criteriaTheme) => {
+      return {
+        // プロパティは先勝ちにしたいので、ループ変数のattributesを上書きする形でマージする
+        ...criteriaTheme.attributes,
+        ...attrObj,
+      };
+    },
+    {} as CriteriaTheme["attributes"]
+  );
+};
+
+/**
+ * dependencyの属性を取得する
+ * @param dependency - depdency-cruiserのdependency
+ */
+const getDependencyAttributes = (
+  dependency: IDependency
+): CriteriaTheme["attributes"] => {
+  return filterMatchThemes(DOT_THEME.dependencies, dependency).reduce(
+    (attrObj, criteriaTheme) => {
+      return {
+        // プロパティは先勝ちにしたいので、ループ変数のattributesを上書きする形でマージする
+        ...criteriaTheme.attributes,
+        ...attrObj,
+      };
+    },
+    {} as CriteriaTheme["attributes"]
+  );
+};
+
+/**
  * JSONデータからGraphvizのDOT言語の文字列を生成する
  * @param modules - dependency-cruiserを実行して得られるJSONデータのmodules
  */
@@ -38,11 +75,12 @@ export const generateDot = (modules: IModule[]): string => {
     }
     const currentPath = rootPath === "" ? segment : `${rootPath}/${segment}`;
     if (restSegments.length <= 0) {
-      const attrs = [
-        `label=<${segment}>`,
-        module.consolidated ? 'shape="box3d"' : null,
-      ].filter((attr) => attr != null);
-      return `"${currentPath}" [${attrs.join(" ")}]`;
+      const attrs = {
+        ...getModuleAttributes(module),
+      };
+      return `"${currentPath}" [label=<${segment}> ${attributizeObject(
+        attrs
+      )}]`;
     }
     return `subgraph "cluster_${currentPath}" { label="${segment}" ${generateNodeLabel(
       restSegments,
@@ -56,7 +94,25 @@ export const generateDot = (modules: IModule[]): string => {
       return [
         generateNodeLabel(mod.source.split("/"), "", mod),
         ...mod.dependencies.map((dep) => {
-          return `"${mod.source}" -> "${dep.resolved}"`;
+          const dependencyAttrs = getDependencyAttributes(dep);
+
+          const dependencyArrowStr = `"${mod.source}" -> "${dep.resolved}"`;
+          if (Object.keys(dependencyAttrs).length <= 0) {
+            return dependencyArrowStr;
+          }
+
+          const ruleName = dep.rules?.[0]?.name;
+          const ruleAttrs: CriteriaTheme["attributes"] =
+            ruleName != null
+              ? {
+                  xlabel: ruleName,
+                  tooltip: ruleName,
+                }
+              : {};
+          return `${dependencyArrowStr} [${attributizeObject({
+            ...ruleAttrs,
+            ...dependencyAttrs,
+          })}]`;
         }),
       ];
     })
