@@ -165,6 +165,7 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
           },
         },
         "& .cluster": {
+          cursor: "pointer",
           [["&:active path", "&:hover path"].join(",")]: {
             fill: "#ffff0011",
           },
