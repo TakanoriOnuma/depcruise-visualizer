@@ -52,14 +52,12 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
     }
 
     const optimizedModules = optimizeModules(depcruiseResult.modules, options);
-    console.log(optimizedModules);
     const dot = generateDot(optimizedModules, {
       ...options,
       baseUrl: options?.baseUrl
         ? urlJoin(options.baseUrl, options.startDir ?? "")
         : undefined,
     });
-    console.log(dot);
 
     const svg = viz.renderSVGElement(dot);
     // ハイライト時に設定する用のグラデーションを追加
