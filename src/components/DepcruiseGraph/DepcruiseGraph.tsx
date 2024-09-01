@@ -10,6 +10,8 @@ import { generateDot } from "./generateDot";
 
 /** アクティブスタイルにするためのクラス名 */
 const ACTIVE_CLASS_NAME = "current";
+/** ピンで固定するスタイルを設定するためのクラス名 */
+const PINNED_CLASS_NAME = "pinned";
 /** edgeに装飾するグラデーションの参照ID */
 const EDGE_GRADATION_ID = "edgeGradient";
 
@@ -87,10 +89,51 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
       });
     };
 
+    /** 固定でアクティブにする要素のタイトル */
+    let pinnedTitle: string | null = null;
+    const contextMenuHandler = (e: Event) => {
+      e.preventDefault();
+      if (e.target instanceof Element) {
+        // 一度スタイルをリセットする
+        [...nodes, ...edges].forEach((element) => {
+          element.classList.remove(PINNED_CLASS_NAME);
+        });
+
+        const closestNodeOrEdge = e.target.closest(".node, .edge");
+        if (closestNodeOrEdge) {
+          const title = getTitleInElement(closestNodeOrEdge);
+          if (pinnedTitle === title) {
+            pinnedTitle = null;
+            return;
+          }
+
+          pinnedTitle = title;
+          const elements = title2ElementsMap[title];
+          if (elements) {
+            elements.forEach((element) => {
+              element.classList.add(PINNED_CLASS_NAME);
+            });
+          }
+        }
+      }
+    };
+    const keyboardHandler = (e: Event) => {
+      if (e instanceof KeyboardEvent) {
+        if (e.key === "Escape") {
+          pinnedTitle = null;
+          [...nodes, ...edges].forEach((element) => {
+            element.classList.remove(PINNED_CLASS_NAME);
+          });
+        }
+      }
+    };
+
     [...nodes, ...edges].forEach((node) => {
       node.addEventListener("mouseenter", mouseOverHandler);
       node.addEventListener("mouseleave", mouseLeaveHandler);
+      node.addEventListener("contextmenu", contextMenuHandler);
     });
+    document.addEventListener("keydown", keyboardHandler);
 
     const clusters = svg.querySelectorAll(".cluster");
     const clusterClickHandler = (e: Event) => {
@@ -110,7 +153,9 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
       [...nodes, ...edges].forEach((node) => {
         node.removeEventListener("mouseenter", mouseOverHandler);
         node.removeEventListener("mouseleave", mouseLeaveHandler);
+        node.removeEventListener("click", contextMenuHandler);
       });
+      document.removeEventListener("keydown", keyboardHandler);
       clusters.forEach((cluster) => {
         cluster.removeEventListener("click", clusterClickHandler);
       });
@@ -129,9 +174,11 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
             "&:active path",
             "&:hover path",
             `&.${ACTIVE_CLASS_NAME} path`,
+            `&.${PINNED_CLASS_NAME} path`,
             "&:active polygon",
             "&:hover polygon",
             `&.${ACTIVE_CLASS_NAME} polygon`,
+            `&.${PINNED_CLASS_NAME} polygon`,
           ].join(",")]: {
             stroke: "fuchsia",
             strokeWidth: 2,
@@ -142,9 +189,11 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
             "&:active path",
             "&:hover path",
             `&.${ACTIVE_CLASS_NAME} path`,
+            `&.${PINNED_CLASS_NAME} path`,
             "&:active ellipse",
             "&:hover ellipse",
             `&.${ACTIVE_CLASS_NAME} ellipse`,
+            `&.${PINNED_CLASS_NAME} ellipse`,
           ].join(",")]: {
             // グラデーションを使うとエッジが見えなくなる時があるので、一旦コメントアウト
             // stroke: `url(#${EDGE_GRADATION_ID})`,
@@ -156,6 +205,7 @@ export const DepcruiseGraph: FC<DepcruiseGraphProps> = ({
             "&:active polygon",
             "&:hover polygon",
             `&.${ACTIVE_CLASS_NAME} polygon`,
+            `&.${PINNED_CLASS_NAME} polygon`,
           ].join(",")]: {
             stroke: "fuchsia",
             strokeWidth: 3,

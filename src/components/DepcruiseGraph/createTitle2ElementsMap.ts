@@ -15,6 +15,7 @@ export const createTitle2ElementsMap = (
     {},
     ...nodes.map((node) => {
       const title = getTitleInElement(node);
+      title2ElementsMap[title] = [node];
       return {
         [title]: node,
       };
@@ -33,7 +34,7 @@ export const createTitle2ElementsMap = (
     const fromNode = nodeMap[from];
     const toNode = nodeMap[to];
     if (fromNode != null && toNode != null) {
-      title2ElementsMap[title] = [fromNode, toNode];
+      title2ElementsMap[title] = [edge, fromNode, toNode];
     }
 
     // from, toに対して、Edgeを登録する
