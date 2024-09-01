@@ -4,9 +4,14 @@ strict digraph "dependency-cruiser output"{
     edge [arrowhead="normal" arrowsize="0.6" penwidth="2.0" color="#00000033" fontname="Helvetica" fontsize="9"]
 
     subgraph "cluster_src" {label="src" "src/App.tsx" [label=<App.tsx> tooltip="App.tsx" URL="https://github.com/TakanoriOnuma/depcruise-visualizer/blob/main/src/App.tsx" fillcolor="#bbfeff"] }
+    "src/App.tsx" -> "src/components/DebugDotGraph/index.ts"
     "src/App.tsx" -> "src/components/DepcruiseGraph/index.ts"
-    "src/App.tsx" -> "src/components/DepcruiseGraph/optimizeModules/index.ts"
+    "src/App.tsx" -> "src/components/DepcruiseGraph/optimizeModules/index.ts" [arrowhead="onormal" penwidth="1.0"]
     "src/App.tsx" -> "src/debug/dependency-result.json"
+    subgraph "cluster_src" {label="src" subgraph "cluster_src/components" {label="components" subgraph "cluster_src/components/DebugDotGraph" {label="DebugDotGraph" "src/components/DebugDotGraph/DebugDotGraph.tsx" [label=<DebugDotGraph.tsx> tooltip="DebugDotGraph.tsx" URL="https://github.com/TakanoriOnuma/depcruise-visualizer/blob/main/src/components/DebugDotGraph/DebugDotGraph.tsx" fillcolor="#bbfeff"] } } }
+    "src/components/DebugDotGraph/DebugDotGraph.tsx" -> "src/debug/dependency-result.dot"
+    subgraph "cluster_src" {label="src" subgraph "cluster_src/components" {label="components" subgraph "cluster_src/components/DebugDotGraph" {label="DebugDotGraph" "src/components/DebugDotGraph/index.ts" [label=<index.ts> tooltip="index.ts" URL="https://github.com/TakanoriOnuma/depcruise-visualizer/blob/main/src/components/DebugDotGraph/index.ts" fillcolor="#ddfeff"] } } }
+    "src/components/DebugDotGraph/index.ts" -> "src/components/DebugDotGraph/DebugDotGraph.tsx" [arrowhead="inv"]
     subgraph "cluster_src" {label="src" subgraph "cluster_src/components" {label="components" subgraph "cluster_src/components/DepcruiseGraph" {label="DepcruiseGraph" "src/components/DepcruiseGraph/DepcruiseGraph.tsx" [label=<DepcruiseGraph.tsx> tooltip="DepcruiseGraph.tsx" URL="https://github.com/TakanoriOnuma/depcruise-visualizer/blob/main/src/components/DepcruiseGraph/DepcruiseGraph.tsx" fillcolor="#bbfeff"] } } }
     "src/components/DepcruiseGraph/DepcruiseGraph.tsx" -> "src/components/DepcruiseGraph/createTitle2ElementsMap.ts"
     "src/components/DepcruiseGraph/DepcruiseGraph.tsx" -> "src/components/DepcruiseGraph/generateDot/index.ts"
@@ -30,6 +35,7 @@ strict digraph "dependency-cruiser output"{
     "src/components/DepcruiseGraph/optimizeModules/index.ts" -> "src/components/DepcruiseGraph/optimizeModules/optimizeModules.ts" [arrowhead="inv"]
     subgraph "cluster_src" {label="src" subgraph "cluster_src/components" {label="components" subgraph "cluster_src/components/DepcruiseGraph" {label="DepcruiseGraph" subgraph "cluster_src/components/DepcruiseGraph/optimizeModules" {label="optimizeModules" "src/components/DepcruiseGraph/optimizeModules/optimizeModules.ts" [label=<optimizeModules.ts> tooltip="optimizeModules.ts" URL="https://github.com/TakanoriOnuma/depcruise-visualizer/blob/main/src/components/DepcruiseGraph/optimizeModules/optimizeModules.ts" fillcolor="#ddfeff"] } } } }
     "src/components/DepcruiseGraph/optimizeModules/optimizeModules.ts" -> "src/components/DepcruiseGraph/optimizeModules/consolidateToPattern.ts"
+    subgraph "cluster_src" {label="src" subgraph "cluster_src/debug" {label="debug" "src/debug/dependency-result.dot" [label=<dependency-result.dot> tooltip="dependency-result.dot" URL="https://github.com/TakanoriOnuma/depcruise-visualizer/blob/main/src/debug/dependency-result.dot" ] } }
     subgraph "cluster_src" {label="src" subgraph "cluster_src/debug" {label="debug" "src/debug/dependency-result.json" [label=<dependency-result.json> tooltip="dependency-result.json" URL="https://github.com/TakanoriOnuma/depcruise-visualizer/blob/main/src/debug/dependency-result.json" fillcolor="#ffee44"] } }
     subgraph "cluster_src" {label="src" "src/index.css" [label=<index.css> tooltip="index.css" URL="https://github.com/TakanoriOnuma/depcruise-visualizer/blob/main/src/index.css" ] }
     subgraph "cluster_src" {label="src" "src/main.tsx" [label=<main.tsx> tooltip="main.tsx" URL="https://github.com/TakanoriOnuma/depcruise-visualizer/blob/main/src/main.tsx" fillcolor="#bbfeff"] }

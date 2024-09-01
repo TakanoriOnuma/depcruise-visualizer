@@ -5,6 +5,23 @@
       "dependencies": [
         {
           "dynamic": false,
+          "module": "./components/DebugDotGraph",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/components/DebugDotGraph/index.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
           "module": "./components/DepcruiseGraph",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
@@ -27,6 +44,7 @@
           "exoticallyRequired": false,
           "dependencyTypes": [
             "local",
+            "type-only",
             "import"
           ],
           "resolved": "src/components/DepcruiseGraph/optimizeModules/index.ts",
@@ -74,6 +92,77 @@
       "dependencies": [],
       "dependents": [
         "src/App.tsx"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/DebugDotGraph/index.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./DebugDotGraph",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "export"
+          ],
+          "resolved": "src/components/DebugDotGraph/DebugDotGraph.tsx",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "src/App.tsx"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/DebugDotGraph/DebugDotGraph.tsx",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "../../debug/dependency-result.dot?raw",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/debug/dependency-result.dot",
+          "coreModule": false,
+          "followable": false,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "src/components/DebugDotGraph/index.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/debug/dependency-result.dot",
+      "followable": false,
+      "coreModule": false,
+      "couldNotResolve": false,
+      "matchesDoNotFollow": false,
+      "dependencyTypes": [
+        "local",
+        "import"
+      ],
+      "dependencies": [],
+      "dependents": [
+        "src/components/DebugDotGraph/DebugDotGraph.tsx"
       ],
       "orphan": false,
       "valid": true
@@ -492,8 +581,8 @@
     "warn": 0,
     "info": 0,
     "ignore": 0,
-    "totalCruised": 17,
-    "totalDependenciesCruised": 18,
+    "totalCruised": 20,
+    "totalDependenciesCruised": 21,
     "optionsUsed": {
       "baseDir": "/Users/takanori/Documents/privateProjests/depcruise-visualizer",
       "combinedDependencies": false,

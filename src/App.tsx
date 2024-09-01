@@ -4,7 +4,7 @@ import { clamp } from "lodash-es";
 
 import depcruiseResult from "./debug/dependency-result.json";
 import { DepcruiseGraph } from "./components/DepcruiseGraph";
-import { OptimizeModulesOption } from "./components/DepcruiseGraph/optimizeModules";
+import type { OptimizeModulesOption } from "./components/DepcruiseGraph/optimizeModules";
 import { DebugDotGraph } from "./components/DebugDotGraph";
 
 export const App: FC = () => {
