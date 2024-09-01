@@ -39,7 +39,7 @@
         },
         {
           "dynamic": false,
-          "module": "./components/DepcruiseGraph/optimizeModules",
+          "module": "./components/DepcruiseGraph",
           "moduleSystem": "es6",
           "exoticallyRequired": false,
           "dependencyTypes": [
@@ -47,7 +47,24 @@
             "type-only",
             "import"
           ],
-          "resolved": "src/components/DepcruiseGraph/optimizeModules/index.ts",
+          "resolved": "src/components/DepcruiseGraph/index.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./components/PathBreadCrumbs",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "import"
+          ],
+          "resolved": "src/components/PathBreadCrumbs/index.ts",
           "coreModule": false,
           "followable": true,
           "couldNotResolve": false,
@@ -440,7 +457,6 @@
         }
       ],
       "dependents": [
-        "src/App.tsx",
         "src/components/DepcruiseGraph/DepcruiseGraph.tsx"
       ],
       "orphan": false,
@@ -478,6 +494,42 @@
       "dependencies": [],
       "dependents": [
         "src/components/DepcruiseGraph/optimizeModules/optimizeModules.ts"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/PathBreadCrumbs/index.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./PathBreadCrumbs",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "dependencyTypes": [
+            "local",
+            "export"
+          ],
+          "resolved": "src/components/PathBreadCrumbs/PathBreadCrumbs.tsx",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": [
+        "src/App.tsx"
+      ],
+      "orphan": false,
+      "valid": true
+    },
+    {
+      "source": "src/components/PathBreadCrumbs/PathBreadCrumbs.tsx",
+      "dependencies": [],
+      "dependents": [
+        "src/components/PathBreadCrumbs/index.ts"
       ],
       "orphan": false,
       "valid": true
@@ -581,8 +633,8 @@
     "warn": 0,
     "info": 0,
     "ignore": 0,
-    "totalCruised": 20,
-    "totalDependenciesCruised": 21,
+    "totalCruised": 22,
+    "totalDependenciesCruised": 23,
     "optionsUsed": {
       "baseDir": "/Users/takanori/Documents/privateProjests/depcruise-visualizer",
       "combinedDependencies": false,
